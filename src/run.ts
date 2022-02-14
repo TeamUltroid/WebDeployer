@@ -1,13 +1,15 @@
 import ChildProcess from "child_process";
 
 async function run() {
-    let mainProcess = ChildProcess.spawn('cd', ['TeamUltroid', '&&', 'python', '-m', 'pyUltroid']);
-    mainProcess.stdout.on('data', (data) => {
-        console.log(data);
-    })
-    mainProcess.stderr.on('data', (data) => {
-        console.log(data);
-    });
+    // Main Process
+    ChildProcess.exec(
+        'cd TeamUltroid && python -m pyUltroid',
+        (error, stdout, stderr) => {
+            if (error) console.error(error);
+            if (stdout) console.log(stdout);
+            if (stderr.trim() != '') console.error(stderr);
+        },
+    );
 }
 
 export default run;
